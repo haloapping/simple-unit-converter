@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Unit Converter | Temperature</title>
+</head>
+
+<body>
+    <h1>Unit Converter</h1>
+    <a href="length.html">Length</a> |
+    <a href="weight.html">Weight</a> |
+    <a href="temperature.html">Temperature</a>
+
+    <form action="/pages/temperature.html" method="post">
+        <p>Enter the temperature to convert</p>
+        <input name="unit" type="text" alt="">
+    
+        <p>Unit to convert from</p>
+        <select name="from" id="from">
+            <option value="" selected></option>
+            <option value="celcius">celcius</option>
+            <option value="farenheit">farenheit</option>
+            <option value="kelvin">kelvin</option>
+        </select>
+        
+        <p>Unit to convert to</p>
+        <select name="to" id="to">
+            <option value="" selected></option>
+            <option value="celcius">celcius</option>
+            <option value="farenheit">farenheit</option>
+            <option value="kelvin">kelvin</option>
+        </select>
+    
+        <br><br>
+    
+        <button type="submit">Convert</button>
+    </form>
+    <p>{{.Unit}}{{.From}} = {{.Res}}{{.To}}</p>
+</body>
+
+</html>

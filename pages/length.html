@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Unit Converter | Length</title>
+</head>
+
+<body>
+    <h1>Unit Converter</h1>
+    <a href="length.html">Length</a> |
+    <a href="weight.html">Weight</a> |
+    <a href="temperature.html">Temperature</a>
+
+    <form action="/pages/length.html" method="post">
+        <p>Enter the length to convert</p>
+        <input name="unit" id="unit" type="text" alt="">
+    
+        <p>Unit to convert from</p>
+        <select name="from" id="from">
+            <option value="" selected></option>
+            <option value="millimeter">millimeter</option>
+            <option value="centimeter">centimeter</option>
+            <option value="meter">meter</option>
+            <option value="kilometer">kilometer</option>
+            <option value="inch">inch</option>
+            <option value="foot">foot</option>
+            <option value="yard">yard</option>
+            <option value="mile">mile</option>
+        </select>
+    
+        <p>Unit to convert to</p>
+        <select name="to" id="to">
+            <option value="" selected></option>
+            <option value="millimeter">millimeter</option>
+            <option value="centimeter">centimeter</option>
+            <option value="meter">meter</option>
+            <option value="kilometer">kilometer</option>
+            <option value="inch">inch</option>
+            <option value="foot">foot</option>
+            <option value="yard">yard</option>
+            <option value="mile">mile</option>
+        </select>
+    
+        <br><br>
+    
+        <button type="submit">Convert</button>
+    </form>
+</body>
+
+</html>
