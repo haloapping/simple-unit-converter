@@ -17,9 +17,9 @@ func main() {
 	mux.HandleFunc("GET /pages/weight.html", WeightPageHandler)
 	mux.HandleFunc("GET /pages/temperature.html", TemperaturePageHandler)
 
-	mux.HandleFunc("POST /pages/length.html", ConvertLengthHandler)
-	mux.HandleFunc("POST /pages/weight.html", ConvertWeightHandler)
-	mux.HandleFunc("POST /pages/temperature.html", ConvertTemperatureHandler)
+	mux.HandleFunc("POST /pages/length.html", ConvertHandler)
+	mux.HandleFunc("POST /pages/weight.html", ConvertHandler)
+	mux.HandleFunc("POST /pages/temperature.html", ConvertHandler)
 
 	fmt.Printf("Server started at %v:%v\n", host, port)
 	if err := http.ListenAndServe(fmt.Sprintf("%v:%v", host, port), mux); err != nil {

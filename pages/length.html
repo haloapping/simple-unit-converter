@@ -14,6 +14,8 @@
     <a href="temperature.html">Temperature</a>
 
     <form action="/pages/length.html" method="post">
+        <input name="converter" id="converter" type="hidden" value="length">
+
         <p>Enter the length to convert</p>
         <input name="unit" id="unit" type="text" alt="">
     
@@ -47,6 +49,8 @@
     
         <button type="submit">Convert</button>
     </form>
+    
+    <p>{{.Unit}} {{.From}} = {{.Res}} {{.To}}</p>
 </body>
 
 </html>

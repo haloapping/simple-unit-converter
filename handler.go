@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"path"
 	"strconv"
+	"strings"
 )
 
 func IndexPageHandler(w http.ResponseWriter, r *http.Request) {
@@ -33,11 +34,53 @@ func LengthPageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ConvertLengthHandler(w http.ResponseWriter, r *http.Request) {
-	filePath := path.Join("pages", "length.html")
+func ConvertHandler(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	pageName := r.FormValue("converter") + ".html"
+	filePath := path.Join("pages", pageName)
 	tmpl, err := template.ParseFiles(filePath)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if r.FormValue("unit") != "" && r.FormValue("from") != "" && r.FormValue("to") != "" {
+		unit, err := strconv.ParseFloat(r.FormValue("unit"), 64)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		from := r.FormValue("from")
+		to := r.FormValue("to")
+
+		var res float64
+		if r.FormValue("converter") == "length" {
+			res = ConvertLength(unit, from, to)
+		} else if r.FormValue("converter") == "weight" {
+			res = ConvertWeight(unit, from, to)
+		} else {
+			res = ConvertTemperature(unit, from, to)
+		}
+
+		data := map[string]interface{}{
+			"Unit": unit,
+			"From": strings.ToUpper(from[:1]) + from[1:],
+			"To":   strings.ToUpper(to[:1]) + to[1:],
+			"Res":  res,
+		}
+
+		err = tmpl.Execute(w, data)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
 		return
 	}
 
@@ -60,69 +103,10 @@ func WeightPageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ConvertWeightHandler(w http.ResponseWriter, r *http.Request) {
-	filePath := path.Join("pages", "weight.html")
-	tmpl, err := template.ParseFiles(filePath)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	err = tmpl.Execute(w, nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
 func TemperaturePageHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("pages/temperature.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	err = tmpl.Execute(w, nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func ConvertTemperatureHandler(w http.ResponseWriter, r *http.Request) {
-	filePath := path.Join("pages", "temperature.html")
-	tmpl, err := template.ParseFiles(filePath)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if r.FormValue("unit") != "" && r.FormValue("from") != "" && r.FormValue("to") != "" {
-		err := r.ParseForm()
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
-
-		unit, err := strconv.ParseFloat(r.FormValue("unit"), 64)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
-		from := r.FormValue("from")
-		to := r.FormValue("to")
-
-		data := map[string]interface{}{
-			"Unit": unit,
-			"From": from,
-			"To":   to,
-			"Res":  ConvertTemperature(unit, from, to),
-		}
-
-		err = tmpl.Execute(w, data)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
 		return
 	}
 
