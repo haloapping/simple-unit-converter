@@ -12,14 +12,14 @@ const (
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /index.html", IndexPageHandler)
-	mux.HandleFunc("GET /pages/length.html", LengthPageHandler)
-	mux.HandleFunc("GET /pages/weight.html", WeightPageHandler)
-	mux.HandleFunc("GET /pages/temperature.html", TemperaturePageHandler)
+	mux.HandleFunc("GET /", IndexPageHandler)
+	mux.HandleFunc("GET /length.html", LengthPageHandler)
+	mux.HandleFunc("GET /weight.html", WeightPageHandler)
+	mux.HandleFunc("GET /temperature.html", TemperaturePageHandler)
 
-	mux.HandleFunc("POST /pages/length.html", ConvertHandler)
-	mux.HandleFunc("POST /pages/weight.html", ConvertHandler)
-	mux.HandleFunc("POST /pages/temperature.html", ConvertHandler)
+	mux.HandleFunc("POST /length.html", ConvertHandler)
+	mux.HandleFunc("POST /weight.html", ConvertHandler)
+	mux.HandleFunc("POST /temperature.html", ConvertHandler)
 
 	fmt.Printf("Server started at %v:%v\n", host, port)
 	if err := http.ListenAndServe(fmt.Sprintf("%v:%v", host, port), mux); err != nil {

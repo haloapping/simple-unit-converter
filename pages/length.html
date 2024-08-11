@@ -13,7 +13,7 @@
     <a href="weight.html">Weight</a> |
     <a href="temperature.html">Temperature</a>
 
-    <form action="/pages/length.html" method="post">
+    <form action="/length.html" method="post">
         <input name="converter" id="converter" type="hidden" value="length">
 
         <p>Enter the length to convert</p>
@@ -49,8 +49,9 @@
     
         <button type="submit">Convert</button>
     </form>
-    
-    <p>{{.Unit}} {{.From}} = {{.Res}} {{.To}}</p>
+    {{if ne .Unit "" }}
+        <p>{{.Unit}} {{.From}} = {{.Res}} {{.To}}</p>
+    {{end}}
 </body>
 
 </html>
