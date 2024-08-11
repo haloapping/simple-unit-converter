@@ -34,6 +34,32 @@ func LengthPageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func WeightPageHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("pages/weight.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func TemperaturePageHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("pages/temperature.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func ConvertHandler(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
@@ -81,32 +107,6 @@ func ConvertHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		return
-	}
-
-	err = tmpl.Execute(w, nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func WeightPageHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("pages/weight.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	err = tmpl.Execute(w, nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func TemperaturePageHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("pages/temperature.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
