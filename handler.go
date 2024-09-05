@@ -28,7 +28,7 @@ func IndexPageHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func LengthPageHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("pages/length.html")
+	tmpl, err := template.ParseFiles("view/length.html")
 	if err != nil {
 		slog.Error(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -46,7 +46,7 @@ func LengthPageHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func WeightPageHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("pages/weight.html")
+	tmpl, err := template.ParseFiles("view/weight.html")
 	if err != nil {
 		slog.Error(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -64,7 +64,7 @@ func WeightPageHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func TemperaturePageHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("pages/temperature.html")
+	tmpl, err := template.ParseFiles("view/temperature.html")
 	if err != nil {
 		slog.Error(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -90,7 +90,7 @@ func ConvertHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	pageName := r.FormValue("converter") + ".html"
-	filePath := path.Join("pages", pageName)
+	filePath := path.Join("view", pageName)
 	tmpl, err := template.ParseFiles(filePath)
 	if err != nil {
 		slog.Error(err.Error())
